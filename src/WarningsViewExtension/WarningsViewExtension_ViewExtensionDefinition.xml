@@ -1,0 +1,4 @@
+﻿<ViewExtensionDefinition>
+  <AssemblyPath>..\bin\WarningsViewExtension.dll</AssemblyPath>
+  <TypeName>WarningsViewExtension.WarningsViewExtension</TypeName>
+</ViewExtensionDefinition>
