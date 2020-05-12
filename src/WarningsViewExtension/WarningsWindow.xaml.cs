@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using Microsoft.Win32;
+using System.IO;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -14,6 +17,7 @@ namespace WarningsViewExtension
       InitializeComponent();
     }
 
+
     private void Grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       if (e.AddedItems.Count > 0)
@@ -25,6 +29,30 @@ namespace WarningsViewExtension
           this.Focus();
           viewModel.ZoomToPosition(nodeInfo);
           this.Focus();          
+        }
+      }
+    }
+
+    private void BtnExport_Click(object sender, RoutedEventArgs e)
+    {
+      const string sep = ",";
+      var viewModel = MainGrid.DataContext as WarningsWindowViewModel;
+      var nodes = viewModel.WarningNodes;
+      if (nodes.Count > 0)
+      {
+        var sfd = new SaveFileDialog();
+        sfd.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+        var res = sfd.ShowDialog();
+        if (res.HasValue && res.Value)
+        {
+          var filename = sfd.FileName;
+          var writer = new StreamWriter(filename);
+          writer.WriteLine("Index" + sep + "Name" + sep + "Guid");
+          foreach (var node in nodes)
+          {
+            writer.WriteLine(node.ID + sep + node.Name + sep + node.GUID);
+          }
+          writer.Close();
         }
       }
     }

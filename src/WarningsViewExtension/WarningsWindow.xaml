@@ -30,7 +30,30 @@
     SelectionMode="Single">
     <DataGrid.Columns>
       <DataGridTextColumn Header="#" Binding="{Binding ID}" CanUserReorder="False"/>
-      <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserReorder="False"/>
+      <DataGridTextColumn Binding="{Binding Name}" CanUserReorder="False" Width="*">
+        <DataGridTextColumn.HeaderStyle>
+          <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#222" />
+          </Style>
+        </DataGridTextColumn.HeaderStyle>
+        <DataGridTextColumn.Header>
+          <Grid Margin="0" Background="Transparent">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="36"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Name" FontSize="8pt" Foreground="#AAA" Margin="3" />
+            <Button Grid.Column="1" x:Name="btnExport" Click="BtnExport_Click" Content="CSV" HorizontalAlignment="Right" Height="12" Margin="3" FontSize="5pt" Background="Black" Foreground="DarkGray" BorderThickness="0">
+              <Button.Resources>
+                <Style TargetType="Border">
+                  <Setter Property="CornerRadius" Value="2" />
+                </Style>
+              </Button.Resources>
+            </Button>
+          </Grid>
+        </DataGridTextColumn.Header>
+      </DataGridTextColumn>
     </DataGrid.Columns>
     <DataGrid.ItemContainerStyle>
       <Style TargetType="DataGridRow">
